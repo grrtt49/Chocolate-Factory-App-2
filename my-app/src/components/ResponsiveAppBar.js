@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -49,7 +49,7 @@ export default function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'Dancing Script, sans-serif',
-              color: 'secondary.main',
+              color: 'text.main',
               textDecoration: 'none',
             }}
           >
@@ -87,7 +87,7 @@ export default function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" sx={{color:"text.main"}}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -103,7 +103,7 @@ export default function ResponsiveAppBar() {
               flexGrow: 1,
               fontFamily: 'Dancing Script, sans-serif',
               fontWeight: 700,
-              color: 'secondary.main',
+              color:"text.main",
               textDecoration: 'none',
             }}
           >
@@ -114,7 +114,7 @@ export default function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block'}}
+                sx={{ my: 2, color: 'black', display: 'block', color:"text.main"}}
               >
                 {page}
               </Button>
@@ -122,9 +122,9 @@ export default function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Account settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <AccountCircleIcon fontSize="large" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -145,7 +145,7 @@ export default function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center" sx={{color:"text.main"}}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
