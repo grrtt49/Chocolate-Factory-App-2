@@ -1,4 +1,5 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
 import { useState } from "react";
 import ChipSelect from "../components/ChipSelect";
 import CustomDatePicker from "../components/CustomDatePicker";
@@ -36,12 +37,21 @@ const testTimes = [
     },
 ];
 
-export default function ScheduleAppointment() {
+export default function ScheduleAppointment(props) {
     
     const [availableTimes, setAvailableTimes] = useState([]);
+    const [dateSelected, setDateSelected] = useState(false);
+    const [peopleCount, setPeopleCount] = useState(0);
+    const [email, setEmail] = useState("");
+    const [timeSelected, setTimeSelected] = useState(false);
 
     const onNewDate = () => {
         setAvailableTimes(generateAvailableTimes());
+        setDateSelected(true);
+    };
+
+    const onNewTime = () => {
+        setTimeSelected(true);
     };
 
     const generateAvailableTimes = () => {
@@ -63,8 +73,37 @@ export default function ScheduleAppointment() {
             >
                 Schedule an Appointment
             </Typography>
+            <Typography
+                variant="p"
+            >
+                Having an appointment guarentees you a spot at Adell's Chocolate Factory at the specified time. While an appointment is not manditory, it helps us plan when people are coming and saves you any wait times.
+            </Typography>
+            <TextField 
+                label="Email" 
+                color="secondary" 
+                sx={{width: 300}}
+                onChange={event => {setEmail(event.target.value);}}
+                value={email || ""}
+            />
+            <TextField 
+                label="Number of people" 
+                color="secondary" 
+                type="number" 
+                sx={{width: 200}} 
+                InputProps={{inputProps: {min: 1, max: 10}}} 
+                onChange={event => {setPeopleCount(event.target.value);}}
+            />
             <CustomDatePicker onNewDate={onNewDate}/>
-            <ChipSelect options={availableTimes} />
+            <ChipSelect options={availableTimes} onChange={onNewTime} />
+            <Button 
+                variant="contained" 
+                color="secondary" 
+                disabled={!dateSelected || peopleCount <= 0 || email == "" || !timeSelected}
+                sx={{position: "fixed", bottom: 15}}
+                onClick={() => props.setScreen("home")}
+            >
+                Schedule
+            </Button>
         </Stack>
     );
 }

@@ -6,6 +6,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import ScheduleAppointment from './screens/ScheduleAppointment';
+import { useState } from 'react';
+import Home from './screens/Home';
 
 const theme = createTheme({
   palette: {
@@ -22,10 +24,24 @@ const theme = createTheme({
 });
 
 function App() {
+  const [screen, setScreen] = useState("home");
+
+  let page = null;
+  console.log("Screen: ", screen)
+  switch (screen) {
+    case "schedule":
+      page = <ScheduleAppointment setScreen={setScreen} />;
+      break;
+  
+    default:
+      page = <Home setScreen={setScreen} />;
+      break;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <ResponsiveAppBar />
-      <ScheduleAppointment />
+      {page}
     </ThemeProvider>
   );
 }
