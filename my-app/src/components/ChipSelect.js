@@ -21,7 +21,7 @@ export default function ChipSelect(props) {
     });
 
     return(
-        <Stack direction="row" alignItems="center" spacing={3} overflow="auto" width="100%" paddingBottom={2}>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} overflow="auto" width="100%" paddingBottom={2}>
             {optionsList}
         </Stack>
     );

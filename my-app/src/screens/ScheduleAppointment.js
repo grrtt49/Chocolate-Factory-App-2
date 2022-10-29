@@ -1,8 +1,10 @@
+import * as React from 'react';
 import { Stack, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import ChipSelect from "../components/ChipSelect";
 import CustomDatePicker from "../components/CustomDatePicker";
+import Confetti from 'react-dom-confetti';
 
 const testTimes = [
     {
@@ -44,6 +46,7 @@ export default function ScheduleAppointment(props) {
     const [peopleCount, setPeopleCount] = useState(0);
     const [email, setEmail] = useState("");
     const [timeSelected, setTimeSelected] = useState(false);
+    const [isConfetti, setIsConfetti] = useState(false);
 
     const onNewDate = () => {
         setAvailableTimes(generateAvailableTimes());
@@ -53,6 +56,10 @@ export default function ScheduleAppointment(props) {
     const onNewTime = () => {
         setTimeSelected(true);
     };
+
+    const scheduleAppointment = () => {
+        setIsConfetti(true);
+    }
 
     const generateAvailableTimes = () => {
         let times = [];
@@ -100,10 +107,30 @@ export default function ScheduleAppointment(props) {
                 color="secondary" 
                 disabled={!dateSelected || peopleCount <= 0 || email == "" || !timeSelected}
                 sx={{position: "fixed", bottom: 15}}
-                onClick={() => props.setScreen("home")}
+                onClick={scheduleAppointment}
             >
                 Schedule
             </Button>
+            <Stack justifyContent="center" alignItems="center">
+				<Confetti 
+					active={isConfetti} 
+					config={{
+						elementCount: 100,
+						spread: 80,
+						startVelocity: 50,
+						angle: 135,
+					}}
+				/>
+				<Confetti 
+					active={isConfetti} 
+					config={{
+						elementCount: 100,
+						spread: 80,
+						startVelocity: 50,
+						angle: 45,
+					}}
+				/>
+			</Stack>
         </Stack>
     );
 }

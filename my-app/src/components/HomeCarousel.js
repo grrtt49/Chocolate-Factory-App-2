@@ -3,6 +3,7 @@ import Carousel from 'react-material-ui-carousel'
 import { Paper, Button } from '@mui/material'
 import CarouselSlide from './CarouselSlide';
 import chocolatesImg from "../chocolates.jpg";
+import otherChocolatesImg from "../otherChocolates.jpg";
 
 export default function HomeCarousel(props) {
     const items = [
@@ -14,14 +15,14 @@ export default function HomeCarousel(props) {
         {
             name: "Random Name #2",
             description: "Hello World!",
-            src: chocolatesImg,
+            src: otherChocolatesImg,
         }
     ];
 
     return (
         <Carousel
             navButtonsAlwaysVisible
-            animation="slide"
+            animation="fade"
             indicatorContainerProps={{
                 style: {
                     marginTop: "20px",

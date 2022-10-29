@@ -1,5 +1,6 @@
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import ResponsiveAppBar from './components/ResponsiveAppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -8,6 +9,8 @@ import '@fontsource/roboto/700.css';
 import ScheduleAppointment from './screens/ScheduleAppointment';
 import { useState } from 'react';
 import Home from './screens/Home';
+import Layout from "./screens/Layout";
+import Reviews from "./screens/Reviews";
 
 const theme = createTheme({
   palette: {
@@ -24,24 +27,19 @@ const theme = createTheme({
 });
 
 function App() {
-  const [screen, setScreen] = useState("home");
-
-  let page = null;
-  console.log("Screen: ", screen)
-  switch (screen) {
-    case "schedule":
-      page = <ScheduleAppointment setScreen={setScreen} />;
-      break;
-  
-    default:
-      page = <Home setScreen={setScreen} />;
-      break;
-  }
 
   return (
     <ThemeProvider theme={theme}>
-      <ResponsiveAppBar />
-      {page}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="schedule" element={<ScheduleAppointment />} />
+            <Route path="reviews" element={<Reviews />} />
+            {/* <Route path="*" element={<NoPage />} /> */}
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

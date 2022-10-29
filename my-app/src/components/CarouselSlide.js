@@ -1,4 +1,4 @@
-import { Paper, Button, Box } from '@mui/material';
+import { Paper, Button, Box, Stack } from '@mui/material';
 import chocolatesImg from "../chocolates.jpg";
 
 export default function CarouselSlide(props) {
@@ -8,22 +8,28 @@ export default function CarouselSlide(props) {
         <Box
             style={{
                 backgroundImage: `url(${props.item.src})`,
-                height: "300px",
+                height: "400px",
+                backgroundSize: "100% auto"
             }}
         >
-            <Box 
+            {/* <Stack 
                 sx={{
                     paddingRight: 10,
                     paddingLeft: 10,
                 }}
+                justifyContent="center"
+                alignItems="center"
+                direction="column"
             >
-                <h2>{props.item.name}</h2>
-                <p>{props.item.description}</p>
+                <div>
+                    <h2 style={{color: "white"}} >{props.item.name}</h2>
+                    <p style={{color:"white"}}>{props.item.description}</p>
 
-                <Button className="CheckButton">
-                    Check it out!
-                </Button>
-            </Box>
+                    <Button className="CheckButton">
+                        Check it out!
+                    </Button>
+                </div>
+            </Stack> */}
         </Box>
     )
 }
