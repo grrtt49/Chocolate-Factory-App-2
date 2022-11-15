@@ -6,7 +6,7 @@ export default function Home(props) {
 
     const goToUrl = (url) => {
         if(url != null) {
-          window.location.href = url;
+          window.location.href = "/" + url;
         }
     };
 
@@ -22,39 +22,59 @@ export default function Home(props) {
             >
                 Welcome to Adell's!
             </Typography>
-            <Grid sx={{ padding: "20px"}} container>
-                <Grid item sx={12} md={6}>
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            textAlign: "left",
-                        }}
-                    >
-                        In addition to selling delicious chocolates, we also provide the opportunity to create your own chocolates!
-                    </Typography>
+            <Grid container spacing={3} sx={{padding: "20px", marginTop: "20px"}}>
+                <Grid item xs={12} md={6}>
+                    <div>
+                        <Typography
+                            variant="h5"
+                            sx={{
+                                textAlign: "left",
+                            }}
+                        >
+                            Come join us to start your chocolate-making journey!
+                        </Typography>
+                        <Typography
+                            variant="p"
+                            sx={{
+                                textAlign: "left",
+                            }}
+                        >
+                            In our interactive studio, we will teach you everything you need to know to become a master chocolate maker! We provide a fun and creative environment for groups of all ages. Schedule an appointment with us today!
+                        </Typography>
+                    </div>
                     <Button 
                         color="secondary"
                         variant="contained" 
                         sx={{marginTop: "20px"}}
-                        onClick={() => goToUrl('/schedule')}
+                        onClick={() => goToUrl('schedule')}
                     >
                         Make an Appointment
                     </Button>
                 </Grid>
-                <Grid item sx={12} md={6}>
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            textAlign: "left",
-                        }}
-                    >
-                        People have many wonderful things to say about us! Head to our reviews section, and if you are a return customer, feel free to leave a review!
-                    </Typography>
+                <Grid item xs={12} md={6}>
+                    <div>
+                        <Typography
+                            variant="h5"
+                            sx={{
+                                textAlign: "left",
+                            }}
+                        >
+                            People have many wonderful things to say about us!
+                        </Typography>
+                        <Typography
+                            variant="p"
+                            sx={{
+                                textAlign: "left",
+                            }}
+                        >
+                            Read our reviews to see what experiences people have when coming here! Alos, you can leave your own review about your own adventures at Adell's.
+                        </Typography>
+                    </div>
                     <Button 
                         color="secondary"
                         variant="contained" 
                         sx={{marginTop: "20px"}}
-                        onClick={() => goToUrl('/reviews')}
+                        onClick={() => goToUrl('reviews')}
                     >
                         Reviews
                     </Button>

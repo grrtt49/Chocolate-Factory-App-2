@@ -1,5 +1,4 @@
 import { Paper, Button, Box, Stack } from '@mui/material';
-import chocolatesImg from "../chocolates.jpg";
 
 export default function CarouselSlide(props) {
     console.log(props.item.src);

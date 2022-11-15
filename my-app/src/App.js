@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Home from './screens/Home';
 import Layout from "./screens/Layout";
 import Reviews from "./screens/Reviews";
+import About from "./screens/About";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="schedule" element={<ScheduleAppointment />} />
             <Route path="reviews" element={<Reviews />} />
+            <Route path="about" element={<About />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
         </Routes>

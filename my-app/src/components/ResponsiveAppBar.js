@@ -9,13 +9,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
 
-const pages = [{title: 'Home', url: '/'}, {title: 'Schedule an appointment', url: '/schedule'}, {title: 'Reviews', url: '/reviews'}];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'About', url: 'about'}, {title: 'Reviews', url: 'reviews'}];
 
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -30,7 +27,7 @@ export default function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (url) => {
     if(url != null) {
-      window.location.href = url;
+      window.location.href = "/" + url;
     }
     setAnchorElNav(null);
   };
