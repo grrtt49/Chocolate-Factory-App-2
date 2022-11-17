@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import LogInMenu from './LogInMenu';
+import SignUpMenu from './SignUpMenu';
 
 
 const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'About', url: 'about'}, {title: 'Reviews', url: 'reviews'}];
@@ -17,6 +19,7 @@ const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url:
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isLoginView, setIsLoginView] = React.useState(true);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +38,34 @@ export default function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSetSignUp = () => {
+    setIsLoginView(false);
+  };
+
+  const handleSetLogIn = () => {
+    setIsLoginView(true);
+  };
+
+  const logIn = (
+    <LogInMenu 
+      anchorEl={anchorElUser}
+      open={Boolean(anchorElUser)}
+      onClose={() => handleCloseUserMenu(null)}
+      onSignUp={handleSetSignUp}
+    />
+  );
+
+  const signUp = (
+    <SignUpMenu 
+      anchorEl={anchorElUser}
+      open={Boolean(anchorElUser)}
+      onClose={() => handleCloseUserMenu(null)}
+      onLogin={handleSetLogIn}
+    />
+  );
+
+  const userMenu = (isLoginView ? logIn : signUp);
 
   return (
     <AppBar position="static">
@@ -120,6 +151,17 @@ export default function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
+          <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenUserMenu}
+              color="inherit"
+            >
+              <AccountCircleIcon />
+            </IconButton>
+            {userMenu}
         </Toolbar>
       </Container>
     </AppBar>

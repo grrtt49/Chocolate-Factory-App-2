@@ -12,6 +12,7 @@ import Home from './screens/Home';
 import Layout from "./screens/Layout";
 import Reviews from "./screens/Reviews";
 import About from "./screens/About";
+import axios from 'axios';
 
 const theme = createTheme({
   palette: {
@@ -27,13 +28,37 @@ const theme = createTheme({
   },
 });
 
+const logIn = async (username, password) => {
+    try {
+      await axios.post("/api/log-in", {
+        username: username,
+        password: password,
+      });
+    }
+    catch (err) {
+        console.log("Log in error: ", err);
+    }
+}
+
+const signUp = async (username, password) => {
+  try {
+    await axios.post("/api/sign-in", {
+      username: username,
+      password: password,
+    });
+  }
+  catch (err) {
+      console.log("Sign in error: ", err);
+  }
+}
+
 function App() {
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout login={logIn} signUp={signUp} />}>
             <Route index element={<Home />} />
             <Route path="schedule" element={<ScheduleAppointment />} />
             <Route path="reviews" element={<Reviews />} />
