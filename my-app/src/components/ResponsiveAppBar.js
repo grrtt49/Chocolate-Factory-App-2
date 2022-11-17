@@ -16,10 +16,12 @@ import SignUpMenu from './SignUpMenu';
 
 const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'About', url: 'about'}, {title: 'Reviews', url: 'reviews'}];
 
-export default function ResponsiveAppBar() {
+export default function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [isLoginView, setIsLoginView] = React.useState(true);
+
+  const {login, signUp} = props;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,25 +49,27 @@ export default function ResponsiveAppBar() {
     setIsLoginView(true);
   };
 
-  const logIn = (
+  const logInScreen = (
     <LogInMenu 
       anchorEl={anchorElUser}
       open={Boolean(anchorElUser)}
       onClose={() => handleCloseUserMenu(null)}
       onSignUp={handleSetSignUp}
+      onLogin={login}
     />
   );
 
-  const signUp = (
+  const signUpScreen = (
     <SignUpMenu 
       anchorEl={anchorElUser}
       open={Boolean(anchorElUser)}
       onClose={() => handleCloseUserMenu(null)}
+      onSignUp={signUp}
       onLogin={handleSetLogIn}
     />
   );
 
-  const userMenu = (isLoginView ? logIn : signUp);
+  const userMenu = (isLoginView ? logInScreen : signUpScreen);
 
   return (
     <AppBar position="static">

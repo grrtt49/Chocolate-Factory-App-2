@@ -28,7 +28,7 @@ const theme = createTheme({
   },
 });
 
-const logIn = async (username, password) => {
+const login = async (username, password) => {
     try {
       await axios.post("/api/log-in", {
         username: username,
@@ -58,7 +58,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout login={logIn} signUp={signUp} />}>
+          <Route path="/" element={<Layout login={login} signUp={signUp} />}>
             <Route index element={<Home />} />
             <Route path="schedule" element={<ScheduleAppointment />} />
             <Route path="reviews" element={<Reviews />} />

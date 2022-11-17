@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 
 export default function LogInMenu (props) {
 
-    const { anchorEl, open, onClose, onSignUp } = props;
+    const { anchorEl, open, onClose, onLogin, onSignUp } = props;
 
     return (
         <Popover
@@ -40,6 +40,7 @@ export default function LogInMenu (props) {
                 <Button 
                     variant="contained"
                     color="secondary"
+                    onClick={() => onLogin()}
                 >
                     Log in
                 </Button>
