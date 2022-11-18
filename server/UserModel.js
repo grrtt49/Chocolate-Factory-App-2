@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 class UserModel {
     User;
@@ -39,7 +40,7 @@ class UserModel {
             let hash = await bcrypt.hash(password, salt);
 
             let user = new this.User({
-                nickname: nickname,
+                username: username,
                 password: hash,
                 appointments: [],
             });
@@ -69,6 +70,25 @@ class UserModel {
         }
         catch (err) {
             console.log("Sign in error: ", err);
+            return false;
+        }
+    }
+
+    async createAppointment(userID, numberOfPeople, date, time) {
+        try {
+            let user = await this.User.findById(userID);
+            if(user) {
+                user.appointments.push({
+                    numberOfPeople: numberOfPeople, 
+                    date: date, 
+                    time: time, 
+                });
+            }
+            this.saveUser(user);
+            return user;
+        }
+        catch (err) {
+            console.log("Create appointment error: ", err);
             return false;
         }
     }

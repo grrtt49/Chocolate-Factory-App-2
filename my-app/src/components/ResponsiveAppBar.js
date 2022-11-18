@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LogInMenu from './LogInMenu';
 import SignUpMenu from './SignUpMenu';
-
+import AccountMenu from './AccountMenu';
+import { useNavigate } from 'react-router-dom';
 
 const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'About', url: 'about'}, {title: 'Reviews', url: 'reviews'}];
 
@@ -21,7 +22,9 @@ export default function ResponsiveAppBar(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [isLoginView, setIsLoginView] = React.useState(true);
 
-  const {login, signUp} = props;
+  const { login, signUp, logOut, username } = props;
+
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,7 +35,7 @@ export default function ResponsiveAppBar(props) {
 
   const handleCloseNavMenu = (url) => {
     if(url != null) {
-      window.location.href = "/" + url;
+      navigate(url);
     }
     setAnchorElNav(null);
   };
@@ -48,6 +51,16 @@ export default function ResponsiveAppBar(props) {
   const handleSetLogIn = () => {
     setIsLoginView(true);
   };
+
+  const accountScreen = (
+    <AccountMenu 
+      anchorEl={anchorElUser}
+      open={Boolean(anchorElUser)}
+      onClose={() => handleCloseUserMenu(null)}
+      username={username}
+      onLogOut={logOut}
+    />
+  );
 
   const logInScreen = (
     <LogInMenu 
@@ -69,7 +82,7 @@ export default function ResponsiveAppBar(props) {
     />
   );
 
-  const userMenu = (isLoginView ? logInScreen : signUpScreen);
+  const userMenu = (username ? accountScreen : (isLoginView ? logInScreen : signUpScreen));
 
   return (
     <AppBar position="static">

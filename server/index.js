@@ -22,13 +22,21 @@ app.listen(3030, () => console.log('Server listening on port 3030!'));
 app.post('/api/log-in', async (req, res) => {
     console.log("Signing in");
     let user = await userModel.logIn(req.body.username, req.body.password);
-    res.send(user);
+    const response = {
+        appointments: user.appointments,
+        id: user.id,
+    };
+    res.send(response);
 });
 
 app.post('/api/sign-up', async (req, res) => {
-    console.log("Signing in");
+    console.log("Signing up");
     let user = await userModel.signUp(req.body.username, req.body.password);
-    res.send(user);
+    const response = {
+        appointments: user.appointments,
+        id: user.id,
+    };
+    res.send(response);
 });
 
 app.get('/api/reviews', async (req, res) => {
@@ -40,4 +48,10 @@ app.post('/api/create-review', async (req, res) => {
     console.log("Creating review");
     let review = await reviewModel.createReview(req.body.stars, req.body.name, req.body.title, req.body.review);
     res.send(review);
+});
+
+app.post('/api/create-appointment', async (req, res) => {
+    console.log("Creating appointment");
+    let user = await userModel.createAppointment(req.body.userID, req.body.numberOfPeople, req.body.date, req.body.time);
+    res.send(user.appointments);
 });

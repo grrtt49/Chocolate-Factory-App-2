@@ -13,6 +13,7 @@ import Layout from "./screens/Layout";
 import Reviews from "./screens/Reviews";
 import About from "./screens/About";
 import axios from 'axios';
+import Appointments from "./screens/Appointments";
 
 const theme = createTheme({
   palette: {
@@ -28,39 +29,58 @@ const theme = createTheme({
   },
 });
 
-const login = async (username, password) => {
+function App() {
+
+  const [appointments, setAppointments] = useState([]);
+  const [userID, setUserID] = useState(null);
+  const [username, setUsername] = useState(null);
+
+  const login = async (username, password) => {
     try {
-      await axios.post("/api/log-in", {
+      let user = await axios.post("/api/log-in", {
         username: username,
         password: password,
       });
+      setAppointments(user.data.appointments);
+      setUserID(user.data.id);
+      setUsername(user.data.username);
+      console.log("Signed in: ", user.data);
     }
     catch (err) {
         console.log("Log in error: ", err);
     }
-}
-
-const signUp = async (username, password) => {
-  try {
-    await axios.post("/api/sign-in", {
-      username: username,
-      password: password,
-    });
   }
-  catch (err) {
-      console.log("Sign in error: ", err);
-  }
-}
 
-function App() {
+  const signUp = async (username, password) => {
+    try {
+      let user = await axios.post("/api/sign-up", {
+        username: username,
+        password: password,
+      });
+      setAppointments(user.data.appointments);
+      setUserID(user.data.id);
+      setUsername(user.data.username);
+      console.log("Signed up: ", user.data);
+    }
+    catch (err) {
+        console.log("Sign in error: ", err);
+    }
+  }
+
+  const logOut = () => {
+    setUsername(null);
+    setUserID(null);
+    setAppointments([]);
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout login={login} signUp={signUp} />}>
+          <Route path="/" element={<Layout login={login} signUp={signUp} username={username} logOut={logOut} />}>
             <Route index element={<Home />} />
-            <Route path="schedule" element={<ScheduleAppointment />} />
+            <Route path="schedule" element={<ScheduleAppointment userID={userID} setAppointments={setAppointments} />} />
+            <Route path="appointments" element={<Appointments username={username} appointments={appointments} />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="about" element={<About />} />
             {/* <Route path="*" element={<NoPage />} /> */}

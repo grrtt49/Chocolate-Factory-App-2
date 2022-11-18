@@ -5,41 +5,11 @@ import { useState } from "react";
 import ChipSelect from "../components/ChipSelect";
 import CustomDatePicker from "../components/CustomDatePicker";
 import Confetti from 'react-dom-confetti';
-
-const testTimes = [
-    {
-        label: "1:00 pm",
-        value: 13,
-        disabled: false,
-    },
-    {
-        label: "2:00 pm",
-        value: 14,
-        disabled: false,
-    },
-    {
-        label: "3:00 pm",
-        value: 15,
-        disabled: false,
-    },
-    {
-        label: "4:00 pm",
-        value: 16,
-        disabled: true,
-    },
-    {
-        label: "5:00 pm",
-        value: 17,
-        disabled: false,
-    },
-    {
-        label: "6:00 pm",
-        value: 18,
-        disabled: false,
-    },
-];
+import axios from 'axios';
 
 export default function ScheduleAppointment(props) {
+
+    const { userID, setAppointments } = props;
     
     const [availableTimes, setAvailableTimes] = useState([]);
     const [dateSelected, setDateSelected] = useState(false);
@@ -47,6 +17,22 @@ export default function ScheduleAppointment(props) {
     const [email, setEmail] = useState("");
     const [timeSelected, setTimeSelected] = useState(false);
     const [isConfetti, setIsConfetti] = useState(false);
+
+    const apiAppointment = async () => {
+        try {
+            let appointments = await axios.post("/api/create-appointment", {
+                userID: userID, 
+                numberOfPeople: peopleCount, 
+                date: dateSelected, 
+                time: timeSelected,
+            });
+            setAppointments(appointments.data);
+            console.log("Created appointment: ", appointments.data);
+        }
+        catch (err) {
+            console.log("Appointment error: ", err);
+        }
+    }
 
     const onNewDate = () => {
         setAvailableTimes(generateAvailableTimes());
@@ -58,6 +44,7 @@ export default function ScheduleAppointment(props) {
     };
 
     const scheduleAppointment = () => {
+        apiAppointment();
         setIsConfetti(true);
     }
 
