@@ -15,7 +15,7 @@ import SignUpMenu from './SignUpMenu';
 import AccountMenu from './AccountMenu';
 import { useNavigate } from 'react-router-dom';
 
-const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'About', url: 'about'}, {title: 'Reviews', url: 'reviews'}];
+const pages = [{title: 'Home', url: ''}, {title: 'Schedule an appointment', url: 'schedule'}, {title: 'Reviews', url: 'reviews'}];
 
 export default function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

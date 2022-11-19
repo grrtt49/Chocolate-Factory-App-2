@@ -6,6 +6,7 @@ import ChipSelect from "../components/ChipSelect";
 import CustomDatePicker from "../components/CustomDatePicker";
 import Confetti from 'react-dom-confetti';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function ScheduleAppointment(props) {
 
@@ -14,9 +15,10 @@ export default function ScheduleAppointment(props) {
     const [availableTimes, setAvailableTimes] = useState([]);
     const [dateSelected, setDateSelected] = useState(false);
     const [peopleCount, setPeopleCount] = useState(0);
-    const [email, setEmail] = useState("");
     const [timeSelected, setTimeSelected] = useState(false);
     const [isConfetti, setIsConfetti] = useState(false);
+
+    const navigate = useNavigate();
 
     const apiAppointment = async () => {
         try {
@@ -34,18 +36,19 @@ export default function ScheduleAppointment(props) {
         }
     }
 
-    const onNewDate = () => {
+    const onNewDate = (newValue) => {
         setAvailableTimes(generateAvailableTimes());
-        setDateSelected(true);
+        setDateSelected(newValue);
     };
 
-    const onNewTime = () => {
-        setTimeSelected(true);
+    const onNewTime = (time) => {
+        setTimeSelected(time);
     };
 
     const scheduleAppointment = () => {
         apiAppointment();
         setIsConfetti(true);
+        navigate("/appointments");
     }
 
     const generateAvailableTimes = () => {
@@ -73,13 +76,6 @@ export default function ScheduleAppointment(props) {
                 Having an appointment guarentees you a spot at Adell's Chocolate Factory at the specified time. While an appointment is not manditory, it helps us plan when people are coming and saves you any wait times.
             </Typography>
             <TextField 
-                label="Email" 
-                color="secondary" 
-                sx={{width: 300}}
-                onChange={event => {setEmail(event.target.value);}}
-                value={email || ""}
-            />
-            <TextField 
                 label="Number of people" 
                 color="secondary" 
                 type="number" 
@@ -92,7 +88,7 @@ export default function ScheduleAppointment(props) {
             <Button 
                 variant="contained" 
                 color="secondary" 
-                disabled={!dateSelected || peopleCount <= 0 || email == "" || !timeSelected}
+                disabled={!dateSelected || peopleCount <= 0 || !timeSelected}
                 sx={{position: "fixed", bottom: 15}}
                 onClick={scheduleAppointment}
             >

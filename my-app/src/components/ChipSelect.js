@@ -6,7 +6,7 @@ export default function ChipSelect(props) {
 
     const chipClicked = (val) => {
         setValue(val);
-        props.onChange();
+        props.onChange(val);
     }
 
     let optionsList = props.options.map((option) => {

@@ -93,6 +93,21 @@ class UserModel {
         }
     }
 
+    async cancelAppointment(userID, index) {
+        try {
+            let user = await this.User.findById(userID);
+            if(user) {
+                user.appointments.splice(index, 1);
+            }
+            this.saveUser(user);
+            return user;
+        }
+        catch (err) {
+            console.log("Create appointment error: ", err);
+            return false;
+        }
+    }
+
     saveUser(user) {
         try {
             return user.save();

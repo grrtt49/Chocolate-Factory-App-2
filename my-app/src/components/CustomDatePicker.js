@@ -21,7 +21,7 @@ export default function CustomDatePicker(props) {
               setValue(newValue);
             }}
             onAccept={(newValue) => {
-              props.onNewDate();
+              props.onNewDate(newValue);
             }}
             shouldDisableDate={shouldDisableDate}
             renderInput={(params) => <TextField color="secondary" {...params} />}

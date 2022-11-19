@@ -67,6 +67,20 @@ function App() {
     }
   }
 
+  const onCancelAppointment = async (index) => {
+      try {
+          let appointments = await axios.post("/api/cancel-appointment", {
+              userID: userID, 
+              index: index,
+          });
+          setAppointments(appointments.data);
+          console.log("Cancelled: ", appointments.data);
+      }
+      catch (err) {
+          console.log("Cancel appointment error: ", err);
+      }
+  }
+
   const logOut = () => {
     setUsername(null);
     setUserID(null);
@@ -80,9 +94,8 @@ function App() {
           <Route path="/" element={<Layout login={login} signUp={signUp} username={username} logOut={logOut} />}>
             <Route index element={<Home />} />
             <Route path="schedule" element={<ScheduleAppointment userID={userID} setAppointments={setAppointments} />} />
-            <Route path="appointments" element={<Appointments username={username} appointments={appointments} />} />
+            <Route path="appointments" element={<Appointments username={username} appointments={appointments} onCancelAppointment={onCancelAppointment} />} />
             <Route path="reviews" element={<Reviews />} />
-            <Route path="about" element={<About />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
         </Routes>

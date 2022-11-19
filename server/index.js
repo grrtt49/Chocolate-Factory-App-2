@@ -25,6 +25,7 @@ app.post('/api/log-in', async (req, res) => {
     const response = {
         appointments: user.appointments,
         id: user.id,
+        username: user.username,
     };
     res.send(response);
 });
@@ -35,6 +36,7 @@ app.post('/api/sign-up', async (req, res) => {
     const response = {
         appointments: user.appointments,
         id: user.id,
+        username: user.username,
     };
     res.send(response);
 });
@@ -53,5 +55,11 @@ app.post('/api/create-review', async (req, res) => {
 app.post('/api/create-appointment', async (req, res) => {
     console.log("Creating appointment");
     let user = await userModel.createAppointment(req.body.userID, req.body.numberOfPeople, req.body.date, req.body.time);
+    res.send(user.appointments);
+});
+
+app.post('/api/cancel-appointment', async (req, res) => {
+    console.log("Cancelling appointment");
+    let user = await userModel.cancelAppointment(req.body.userID, req.body.index);
     res.send(user.appointments);
 });
